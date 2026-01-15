@@ -27,8 +27,11 @@ jobs:
               with:
                   terraform_version: 1.14.3
 
+            - name: Create Backend Config
+              run: echo "${{ secrets.TF_BACKEND_CONF }}" > backend.conf
+              working-directory: ./terraform
             - name: Terraform Init
-              run: terraform init
+              run: terraform init -backend-config=backend.conf
               working-directory: ./terraform
 
             - name: Terraform Validate
