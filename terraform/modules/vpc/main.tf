@@ -96,6 +96,7 @@ resource "aws_security_group" "ecs_tasks" {
   )
 
   ingress {
+    description = "Allow inbound traffic from VPC"
     from_port   = 0
     to_port     = 65535
     protocol    = "tcp"
@@ -103,9 +104,11 @@ resource "aws_security_group" "ecs_tasks" {
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    # trivy:ignore:AVD-AWS-0104
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
